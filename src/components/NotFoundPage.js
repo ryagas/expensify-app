@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-export default () => (
+
+const NotFoundPage = () => (
   <div>
-    404! - <Link to="/">Go home</Link>
+    404 - <Link to="/">Go home</Link>
   </div>
 );
+
+export default NotFoundPage;
