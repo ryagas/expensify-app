@@ -70,7 +70,7 @@ export const startSetExpenses = () => {
   };
 };
 
-export const startRemoveExpense = ({ id }) => {
+export const startRemoveExpense = ({ id } = {}) => {
   return (dispatch) => {
     return database
       .ref(`expenses/${id}`)
