@@ -64,7 +64,7 @@ test('should setup edit expense action object', () => {
   });
 });
 
-test('should edit expense from firebase', (done) => {
+test.skip('should edit expense from firebase', (done) => {
   const store = createMockStore({});
   const expense = expenses[2];
   const id = expense.id;
