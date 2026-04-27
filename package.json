@@ -5,7 +5,7 @@
   "author": "Andrew Mead",
   "license": "MIT",
   "engines": {
-    "node": "12.11.1"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build:dev": "webpack",
@@ -33,11 +33,11 @@
     "css-loader": "0.28.4",
     "eslint": "^6.5.1",
     "express": "^4.17.1",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^1.6.2",
     "firebase": "^7.1.0",
     "history": "^4.10.1",
     "moment": "2.29.4",
-    "node-sass": "^4.13.1",
+    "sass": "^1.64.0",
     "normalize.css": "7.0.0",
     "numeral": "^2.0.6",
     "raf": "3.3.2",
@@ -51,11 +51,11 @@
     "redux": "3.7.2",
     "redux-mock-store": "1.2.3",
     "redux-thunk": "2.2.0",
-    "sass-loader": "6.0.6",
+    "sass-loader": "^10.3.0",
     "style-loader": "0.18.2",
     "uuid": "3.1.0",
     "validator": "8.0.0",
-    "webpack": "3.1.0"
+    "webpack": "^4.46.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
@@ -66,6 +66,7 @@
     "jest": "^24.9.0",
     "jest-circus": "^24.9.0",
     "react-test-renderer": "16.0.0",
-    "webpack-dev-server": "3.1.11"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
   }
 }

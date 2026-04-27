@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import uuid from 'uuid';
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -11,9 +12,59 @@ const config = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-firebase.initializeApp(config);
+let database;
 
-const database = firebase.database();
+// Development mode: use mock database if Firebase is not configured
+if (process.env.NODE_ENV === 'development' && process.env.FIREBASE_API_KEY === 'test') {
+  // Mock database for development
+  const mockStore = {};
+
+  database = {
+    ref: (path) => {
+      return {
+        push: (data) => {
+          const key = uuid();
+          if (!mockStore[path]) {
+            mockStore[path] = {};
+          }
+          mockStore[path][key] = data;
+          return Promise.resolve({ key });
+        },
+        once: (event) => {
+          const data = mockStore[path] || {};
+          return Promise.resolve({
+            val: () => data,
+            forEach: (callback) => {
+              Object.entries(data).forEach(([key, value]) => {
+                callback({
+                  key,
+                  val: () => value
+                });
+              });
+            }
+          });
+        },
+        update: (updates) => {
+          if (!mockStore[path]) {
+            mockStore[path] = {};
+          }
+          Object.assign(mockStore[path], updates);
+          return Promise.resolve();
+        },
+        remove: () => {
+          if (mockStore[path]) {
+            delete mockStore[path];
+          }
+          return Promise.resolve();
+        }
+      };
+    }
+  };
+} else {
+  // Production mode: use Firebase
+  firebase.initializeApp(config);
+  database = firebase.database();
+}
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
